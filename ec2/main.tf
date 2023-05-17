@@ -23,7 +23,7 @@ connection {
  inline = [
   "git clone https://github.com/navani91/roboshop-shell.git"
   "cd roboshop_shell"
-  "sudo bash ${var.component}.sh"
+  "sudo bash ${var.component}.sh ${var.password}"
  ]
 
 }
@@ -64,4 +64,5 @@ variable "component" {}
 variable "instance_type" {}
 variable "env" {
   default = "dev"
+  variable "password" {}
 }
