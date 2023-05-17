@@ -12,6 +12,21 @@ resource "aws_instance" "ec2" {
   tags = {
     Name = var.component
   }
+provisioner "remote_exec" {
+
+connection {
+ host     = self.public_ip
+ user     = Centos
+ password = DevOps321
+}
+
+ inline = [
+  "git clone https://github.com/navani91/roboshop-shell.git"
+  "cd roboshop_shell"
+  "sudo bash ${var.component}.sh"
+ ]
+
+}
 
 resource "aws_security_group" "sg" {
   name        = "${var.component}-${var.env}-sg"
@@ -47,7 +62,6 @@ resource "aws_route53_record" "record" {
 
 variable "component" {}
 variable "instance_type" {}
-variable "sg_id" {}
 variable "env" {
   default = "dev"
 }
