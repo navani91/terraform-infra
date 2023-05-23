@@ -1,7 +1,7 @@
 data "aws_ami" "ami" {
   most_recent = true
-  name_regex  = "Centos-8-DevOps-Practice"
-  owners      = ["973714476881"]
+  name_regex  = "devops-practic-with-ansible"
+  owners      = [data.aws_caller_identity.current.account_id]
 }
 
 
@@ -21,9 +21,7 @@ connection {
 }
 
  inline = [
-  "git clone https://github.com/navani91/roboshop-shell.git"
-  "cd roboshop_shell"
-  "sudo bash ${var.component}.sh ${var.password}"
+  "ansible-pull -i localhost, -u https://github.com/navani91/roboshop-ansible roboshop.yml -e role_name${var.component}"
  ]
 
 }
